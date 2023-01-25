@@ -1,0 +1,60 @@
+﻿<Window x:Class="Chatterino.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Chatterino"
+        xmlns:viewmodels="clr-namespace:Chatterino.MVVM.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    
+    <Window.DataContext>
+        <viewmodels:MainViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Column="0">
+            <Button DockPanel.Dock="Bottom"
+                    FontSize="18"
+                    Content="join chat"
+                    Command="{Binding ConnectCommand}"/>
+            <TextBox DockPanel.Dock="Bottom"
+                     FontSize="18"
+                     Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <ListView FontSize="18"
+                      ItemsSource="{Binding Users}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Username}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </DockPanel>
+
+        <DockPanel Grid.Column="1">
+            <DockPanel DockPanel.Dock="Bottom">
+                <Button FontSize="18"
+                        Width="70"
+                        Content="Send"
+                        DockPanel.Dock="Right"
+                        Command="{Binding SendMessageCommand}"/>
+                <TextBox FontSize="18"
+                         Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"/>
+            </DockPanel>
+
+            <ListView FontSize="18"
+                      ItemsSource="{Binding Messages}">
+                
+            </ListView>
+        </DockPanel>
+        
+        
+    </Grid>
+
+</Window>
